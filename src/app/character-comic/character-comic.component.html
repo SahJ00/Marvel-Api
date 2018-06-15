@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container bg-main-container">
+        <div class="row">
+          <div class="card-group pt-3 pb-2 col-sm-3 col-md-3 " *ngFor ="let comic of comics">
+            <div class="card hvr-grow m-2">
+              <img src="{{comic.thumbnail.path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
+              <div class="card-body">
+                <h5 class="card-title text-center">
+                  {{ comic.title }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

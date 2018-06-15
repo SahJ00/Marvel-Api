@@ -1,0 +1,30 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<form role="form" class="form-inline m-3">
+				<div class="form-group m-1">
+					<label>
+						Search Character:
+					</label>
+					<input type="text" class="form-control m-1" id="name" (keyup.enter)="getCharacter(name.value)" #name>
+				</div>
+				<button name="search" type="button" class="btn btn-default" (click)="getCharacter(name.value)">Search</button>
+			</form>
+			<div id="error" class="text-danger border border-danger m-2"></div>
+			<div class="row text-center" *ngFor="let character of characters">
+				<div class="col-md-3 m-3">
+					<img src="{{character.thumbnail.path}}.jpg" alt="picture of the character" class="img fluid card-img-top">
+				</div>
+				<div class="col-md-7 m-3">
+					<h3>
+						{{ character.name }}
+					</h3>
+					<p>
+						{{ character.description }}
+					</p>
+					<a [routerLink]="['/character-comic', character.id]">see the comics</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

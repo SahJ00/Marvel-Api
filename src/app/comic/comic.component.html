@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="container bg-main-container">
+        <div class="row">
+          <div class="card-group pt-3 pb-2 col-sm-3 col-md-3 " *ngFor ="let comic of comics">
+            <div class="card hvr-grow m-2">
+              <img src="{{comic.images[0].path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
+              <div class="card-body">
+                <h5 class="card-title text-center">
+                  {{ comic.title }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3 class="m-2">
+        Filter
+      </h3>
+      <form role="form" class="form-inline">
+        <div class="form-group">
+          <label class="m-1">
+            Comic's Name:
+          </label>
+          <input type="text" class="form-control m-1" id="comic-name"/>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
+      <h2>
+        Heading
+      </h2>
+      <p>
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </p>
+      <p>
+        <a class="btn" href="#">View details »</a>
+      </p>
+    </div>
+  </div>
+</div>
