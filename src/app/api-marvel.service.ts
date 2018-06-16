@@ -20,5 +20,10 @@ export class ApiMarvelService {
     return this.http.get(urlCharacterComic)
   }
 
+  getComics(url, title, key) {
+    var urlComics = url + title + key;
+    console.log(urlComics)
+    return this.http.get(urlComics)
+  }
 
 }

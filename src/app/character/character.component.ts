@@ -18,7 +18,6 @@ export class CharacterComponent implements OnInit {
     var url = "https://gateway.marvel.com/v1/public/";
     var characters = `characters?name=${name}`;
     var key = "&apikey=d6cf293cd8d387f452b11349e849e0c5&ts=688608000&hash=5c0a490309dd8bdd031d9cf69a968a9a";
-
     try {this.ApiMarvelService.getCharacter(url, characters, key).subscribe(
       data => {
         document.getElementById("error").setAttribute("style", "display: none;");

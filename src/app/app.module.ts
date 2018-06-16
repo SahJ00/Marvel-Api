@@ -13,6 +13,7 @@ import { ComicDetailComponent } from './comic-detail/comic-detail.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ApiMarvelService } from './api-marvel.service';
 import { CharacterComicComponent } from './character-comic/character-comic.component';
+import { ComicsFilterComponent } from './comics-filter/comics-filter.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CharacterComicComponent } from './character-comic/character-comic.compo
     CharacterComponent,
     ComicDetailComponent,
     NotFoundComponent,
-    CharacterComicComponent
+    CharacterComicComponent,
+    ComicsFilterComponent
   ],
   imports: [
     BrowserModule,

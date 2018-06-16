@@ -4,3 +4,7 @@
   border-left: 1px solid #f0141e;
   border-right: 1px solid #f0141e;
 }
+
+#error {
+  display: none;
+}
