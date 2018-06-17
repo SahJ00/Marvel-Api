@@ -8,43 +8,60 @@ import { ApiMarvelService } from '../api-marvel.service'
 })
 export class ComicComponent implements OnInit {
   comics = null;
+  loading: boolean;
   dateRange = "";
   name = "";
+  comic = "comics?";
   constructor(private ApiMarvelService: ApiMarvelService) { }
 
   ngOnInit() {
+    
+    // Loading spinner
+    this.loading = true;
     var html = "<option style='display:none' value class>select a date</option>"
-    var url = "https://gateway.marvel.com/v1/public/";
-    var comic = "comics?";
-    var key = "&apikey=d6cf293cd8d387f452b11349e849e0c5&ts=688608000&hash=5c0a490309dd8bdd031d9cf69a968a9a";
-    this.ApiMarvelService.getAll(url, comic, key).subscribe(
+    // Ajax
+    this.ApiMarvelService.getAll(this.comic).subscribe(
       data => {
         this.comics = data;
         this.comics = this.comics.data.results
-        // console.log(this.comics);
+        // Delete comic that does not have frontpage
         for (var i = 0; i < this.comics.length; i++) {
           if (this.comics[i].images.length === 0) {
-            // console.log(this.comics[i]);
             this.comics.splice(i, 1);
             i--;
           }
         }
+        this.loading = false;
       }
     )
+
+    // Loop for year filter
     for (var y = 1990; y <= 2018; y++) {
       html += "<option>" + y + "</option>"
     }
+
+    // Print year in the html
     document.getElementById("year-from").innerHTML = html;
     document.getElementById("year-to").innerHTML = html;
-
   }
 
+  // Function filter
   searchComics(name, format, formatType, orderBy, dateFrom, dateTo, limit) {
-    this.dateRange = `${dateFrom}-01-30%2C${dateTo}-12-30`;
+    this.comics = null
+    this.comic = "comics?"
+
+    // Stop loading spinner
+    this.loading = true;
+
+    // Replace spaces
     this.name = name.replace(" ", "%20");
-    var url = "https://gateway.marvel.com/v1/public/";
-    var comic = "comics?";
-    var key = "apikey=d6cf293cd8d387f452b11349e849e0c5&ts=688608000&hash=5c0a490309dd8bdd031d9cf69a968a9a";
+
+    // 
+    if (dateFrom != "" && dateTo != "") {
+      this.dateRange = `${dateFrom}-01-30%2C${dateTo}-12-30`;
+    }
+
+    // Filter Dictionary 
     var filters = {
       title: this.name,
       format: format,
@@ -54,38 +71,37 @@ export class ComicComponent implements OnInit {
       limit: limit
     }
 
+    // Generate de url with filters
     for (let filter in filters) {
-
       if (filters[filter] != "") {
-        console.log("soy  " + name)
-       
-        console.log("titleNmae  " + this.name)
-        console.log(comic + filter + "=" + filters[filter] + "&")
-        comic += filter + "=" + filters[filter] + "&"
+        this.comic += filter + "=" + filters[filter] + "&"
       }
     }
 
-    try {
-      this.ApiMarvelService.getComics(url, comic, key).subscribe(
-        data => {
-          document.getElementById("error").setAttribute("style", "display: none;");
-          this.comics = data;
-          this.comics = this.comics.data.results
-          // console.log(this.comics);
-          for (var i = 0; i < this.comics.length; i++) {
-            if (this.comics[i].images.length === 0) {
-              //console.log(this.comics[i]);
-              this.comics.splice(i, 1);
-              i--;
-            }
+    // Ajax
+    this.ApiMarvelService.getComics(this.comic).subscribe(
+      data => {
+        document.getElementById("error").setAttribute("style", "display: none;");
+        this.comics = data;
+        this.comics = this.comics.data.results
+
+        // Delete comic that does not have frontpage
+        for (var i = 0; i < this.comics.length; i++) {
+          if (this.comics[i].images.length === 0) {
+            this.comics.splice(i, 1);
+            i--;
           }
-          if (this.comics.length === 0) {
-            document.getElementById("error").setAttribute("style", "display: block;");
-            document.getElementById("error").innerHTML = "there are no comics available with the filters"
-          }
-        })
-    } catch (error) {
-      document.getElementById("error").innerHTML = error.message;
-    }
+        }
+
+        // Message
+        if (this.comics.length === 0) {
+          document.getElementById("error").setAttribute("style", "display: block;");
+          document.getElementById("error").innerHTML = "there are no comics available with the filters"
+        }
+
+        // Stop loading spinner
+        this.loading = false;
+      }
+    )
   }
 }

@@ -11,6 +11,9 @@
 				<button name="search" type="button" class="btn btn-default" (click)="getCharacter(name.value)">Search</button>
 			</form>
 			<div id="error" class="text-danger border border-danger m-2"></div>
+			<div class="loading img-fluid m-4 " *ngIf="loading">
+				<img class="img-fluid mx-auto d-block" src="../../assets/images/loading.gif"/>
+			</div>
 			<div class="row text-center" *ngFor="let character of characters">
 				<div class="col-md-3 m-3">
 					<img src="{{character.thumbnail.path}}.jpg" alt="picture of the character" class="img fluid card-img-top">

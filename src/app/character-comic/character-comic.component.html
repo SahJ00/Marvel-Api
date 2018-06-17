@@ -1,9 +1,12 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
       <div class="container bg-main-container">
+        <div class="loading img-fluid" *ngIf="loading">
+          <img class="img-fluid mx-auto d-block" src="../../assets/images/loading.gif"/>
+        </div>
         <div class="row">
-          <div class="card-group pt-3 pb-2 col-sm-3 col-md-3 " *ngFor ="let comic of comics">
+          <div class="card-group pt-3 pb-2 col-sm-3 col-md-3 " *ngFor="let comic of comics">
             <div class="card hvr-grow m-2">
               <img src="{{comic.thumbnail.path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
               <div class="card-body">
@@ -14,6 +17,65 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h3 class="m-2">
+        Search
+      </h3>
+        <button name="search" type="button" class="btn btn-default" (click)="searchCharacterComics(format.value, formatType.value, orderBy.value, dateFrom.value, dateTo.value, limit.value)">Search</button>
+      <div id="error" class="text-danger border border-danger m-2"></div>
+      <h3 class="m-2">
+        Filter
+      </h3>
+      <div class="form-group m-1">
+        <label for="format">Format:</label>
+        <select class="form-control" #format>
+          <option style="display:none"  value class>select a format</option>
+          <option>comic</option>
+          <option>magazine</option>
+          <option>trade paperback</option>
+          <option>hardcover</option>
+          <option>digest</option>
+          <option>graphic novel</option>
+          <option>digital comic</option>
+          <option>infinite comic</option>
+        </select>
+      </div>
+      <div class="form-group m-1">
+        <label for="formatType">Format Type:</label>
+        <select class="form-control" #formatType>
+          <option style="display:none" value class >select a format type</option>
+          <option>comic</option>
+          <option>collection</option>
+        </select>
+      </div>
+      <div class="form-group m-1">
+        <label for="orderBy">Order By:</label>
+        <select class="form-control" #orderBy>
+          <option style="display:none" value class>select a order by</option>
+          <option disabled>--- ASC ---</option>
+          <option>focDate</option>
+          <option>title</option>
+          <option disabled>--- DESC ---</option>
+          <option>-focDate</option>
+          <option>-title</option>
+        </select>
+      </div>
+      <label for="dateRange">Date Range:</label>
+      <div class="form-group m-1 form-inline">
+        <label for="from" class="m-1">from:</label>
+        <select class="form-control" class="m-1" id="year-from" value="1990" #dateFrom>
+        </select>
+          <label for="to" class="m-1">to:</label>
+          <select class="form-control" class="m-1" id="year-to" value="1990" #dateTo>
+        </select>
+      </div>
+      <div class="form-group m-2">
+        <label class="m-1">
+           Limit:
+        </label>
+        <input type="text" class="form-control m-1" placeholder="100" #limit>
       </div>
     </div>
   </div>

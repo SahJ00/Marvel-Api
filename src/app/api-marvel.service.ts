@@ -3,25 +3,27 @@ import { HttpClient } from '@angular/common/http'
 
 @Injectable()
 export class ApiMarvelService {
+  url = "https://gateway.marvel.com/v1/public/";
+  key = "apikey=d6cf293cd8d387f452b11349e849e0c5&ts=688608000&hash=5c0a490309dd8bdd031d9cf69a968a9a";
   constructor(private http: HttpClient) { }
 
-  public getAll(url, comic, key) {
-    var urlComics = url + comic + key;
-    return this.http.get(urlComics)
+  public getAll(comic) {
+      var urlComics = this.url + comic + this.key;
+      return this.http.get(urlComics)
   }
 
-  getCharacter(url, characters, key) {
-    var urlCharacter = url + characters + key;
+  getCharacter(characters) {
+    var urlCharacter = this.url + characters + this.key;
     return this.http.get(urlCharacter)
   }
 
-  getCharacterComic(url, characters, key) {
-    var urlCharacterComic = url + characters + key;
+  getCharacterComic(characters) {
+    var urlCharacterComic = this.url + characters + this.key;
     return this.http.get(urlCharacterComic)
   }
 
-  getComics(url, title, key) {
-    var urlComics = url + title + key;
+  getComics(title) {
+    var urlComics = this.url + title + this.key;
     console.log(urlComics)
     return this.http.get(urlComics)
   }
