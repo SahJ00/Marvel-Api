@@ -73,7 +73,7 @@ export class CharacterComicComponent implements OnInit {
   // Function filter
   searchComics(format, formatType, orderBy, dateFrom, dateTo, limit) {
     this.comics = null
-    this.comic = "comics?"
+    this.comic = `characters/${this.id}/comics?`
 
     // Stop loading spinner
     this.loading = true;
