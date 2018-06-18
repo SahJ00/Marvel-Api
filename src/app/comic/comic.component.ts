@@ -15,7 +15,7 @@ export class ComicComponent implements OnInit {
   constructor(private ApiMarvelService: ApiMarvelService) { }
 
   ngOnInit() {
-    
+
     // Loading spinner
     this.loading = true;
     var html = "<option style='display:none' value class>select a date</option>"
@@ -85,11 +85,19 @@ export class ComicComponent implements OnInit {
         this.comics = data;
         this.comics = this.comics.data.results
 
+
         // Delete comic that does not have frontpage
         for (var i = 0; i < this.comics.length; i++) {
           if (this.comics[i].images.length === 0) {
             this.comics.splice(i, 1);
             i--;
+          }
+        }
+
+        // Change img not found
+        for (var i = 0; i < this.comics.length; i++) {
+          if (this.comics[i].thumbnail.path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available") {
+            this.comics[i].thumbnail.path = "../../assets/images/img-not-found"
           }
         }
 

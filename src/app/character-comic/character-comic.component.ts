@@ -8,16 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./character-comic.component.css']
 })
 export class CharacterComicComponent implements OnInit {
-  comics = null
+
+  comics: any = null
   loading: boolean;
-  dateRange = "";
-  name = "";
-  id = null;
-  comic = null;
+  dateRange: string = "";
+  name: string = "";
+  id: number = null;
+  comic: string = null;
+
   constructor(
     private route: ActivatedRoute,
     private ApiMarvelService: ApiMarvelService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -57,22 +58,33 @@ export class CharacterComicComponent implements OnInit {
       data => {
         this.comics = data;
         this.comics = this.comics.data.results
+
+        // Change img not found
+        for (var i = 0; i < this.comics.length; i++) {
+          if (this.comics[i].thumbnail.path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available") {
+            this.comics[i].thumbnail.path = "../../assets/images/img-not-found"
+          }
+        }
         this.loading = false;
       })
+
   }
+
   // Function filter
-  searchCharacterComics(format, formatType, orderBy, dateFrom, dateTo, limit) {
+  searchComics(format, formatType, orderBy, dateFrom, dateTo, limit) {
     this.comics = null
+    this.comic = "comics?"
 
     // Stop loading spinner
     this.loading = true;
+
+    // 
     if (dateFrom != "" && dateTo != "") {
       this.dateRange = `${dateFrom}-01-30%2C${dateTo}-12-30`;
     }
 
     // Filter Dictionary 
     var filters = {
-      title: this.name,
       format: format,
       formatType: formatType,
       orderBy: orderBy,
@@ -86,7 +98,7 @@ export class CharacterComicComponent implements OnInit {
         this.comic += filter + "=" + filters[filter] + "&"
       }
     }
-    
+
     // Ajax
     this.ApiMarvelService.getComics(this.comic).subscribe(
       data => {
@@ -94,11 +106,19 @@ export class CharacterComicComponent implements OnInit {
         this.comics = data;
         this.comics = this.comics.data.results
 
+
         // Delete comic that does not have frontpage
         for (var i = 0; i < this.comics.length; i++) {
           if (this.comics[i].images.length === 0) {
             this.comics.splice(i, 1);
             i--;
+          }
+        }
+
+        // Change img not found
+        for (var i = 0; i < this.comics.length; i++) {
+          if (this.comics[i].thumbnail.path === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available") {
+            this.comics[i].thumbnail.path = "../../assets/images/img-not-found"
           }
         }
 

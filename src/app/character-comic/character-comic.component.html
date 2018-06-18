@@ -1,14 +1,16 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8">
-      <div class="container bg-main-container">
+      <div class="container">
         <div class="loading img-fluid" *ngIf="loading">
-          <img class="img-fluid mx-auto d-block" src="../../assets/images/loading.gif"/>
+          <img class="img-fluid mx-auto d-block" src="../../assets/images/loading.gif" />
         </div>
         <div class="row">
           <div class="card-group pt-3 pb-2 col-sm-3 col-md-3 " *ngFor="let comic of comics">
             <div class="card hvr-grow m-2">
-              <img src="{{comic.thumbnail.path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
+              <a [routerLink]="['/comic-details', comic.id]">
+                <img src="{{comic.thumbnail.path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
+              </a>
               <div class="card-body">
                 <h5 class="card-title text-center">
                   {{ comic.title }}
@@ -23,7 +25,7 @@
       <h3 class="m-2">
         Search
       </h3>
-        <button name="search" type="button" class="btn btn-default" (click)="searchCharacterComics(format.value, formatType.value, orderBy.value, dateFrom.value, dateTo.value, limit.value)">Search</button>
+      <button name="search" type="button" class="btn btn-default" (click)=" searchComics(format.value, formatType.value, orderBy.value, dateFrom.value, dateTo.value, limit.value)">Search</button>
       <div id="error" class="text-danger border border-danger m-2"></div>
       <h3 class="m-2">
         Filter
@@ -31,7 +33,7 @@
       <div class="form-group m-1">
         <label for="format">Format:</label>
         <select class="form-control" #format>
-          <option style="display:none"  value class>select a format</option>
+          <option style="display:none" value class>select a format</option>
           <option>comic</option>
           <option>magazine</option>
           <option>trade paperback</option>
@@ -45,7 +47,7 @@
       <div class="form-group m-1">
         <label for="formatType">Format Type:</label>
         <select class="form-control" #formatType>
-          <option style="display:none" value class >select a format type</option>
+          <option style="display:none" value class>select a format type</option>
           <option>comic</option>
           <option>collection</option>
         </select>
@@ -67,13 +69,13 @@
         <label for="from" class="m-1">from:</label>
         <select class="form-control" class="m-1" id="year-from" value="1990" #dateFrom>
         </select>
-          <label for="to" class="m-1">to:</label>
-          <select class="form-control" class="m-1" id="year-to" value="1990" #dateTo>
+        <label for="to" class="m-1">to:</label>
+        <select class="form-control" class="m-1" id="year-to" value="1990" #dateTo>
         </select>
       </div>
       <div class="form-group m-2">
         <label class="m-1">
-           Limit:
+          Limit:
         </label>
         <input type="text" class="form-control m-1" placeholder="100" #limit>
       </div>

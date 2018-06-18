@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: '', component: CharacterComponent },
   { path: 'comics', component: ComicComponent},
   { path: 'character-comic/:id', component: CharacterComicComponent },
-  { path: 'comic-details', component: ComicDetailComponent },
+  { path: 'comic-details/:id', component: ComicDetailComponent },
   { path: '**', component: NotFoundComponent }
   
 ]

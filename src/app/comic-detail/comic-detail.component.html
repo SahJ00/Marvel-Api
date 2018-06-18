@@ -1,3 +1,41 @@
-<p>
-  comic-detail works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="container col-md-11">
+      <div class="loading img-fluid m-4 " *ngIf="loading">
+        <img class="img-fluid mx-auto d-block" src="../../assets/images/loading.gif" />
+      </div>
+      <div class="row text-center" *ngFor="let comic of comics">
+        <div class="col-md-3 m-3">
+          <img src="{{comic.images[0].path}}.jpg" alt="front page of comic" class="img fluid card-img-top">
+        </div>
+        <div class="col-md-7 m-3">
+          <h3>
+            {{ comic.title }}
+          </h3>
+          <p>
+            <strong>Description:</strong>
+            <br> {{ comic.description }}
+          </p>
+          <p>
+            <strong>Price:</strong> {{ comic.prices[0].price }}$
+          </p>
+          <p>
+            <strong>Format:</strong> {{ comic.format }}
+          </p>
+          <p>
+            <strong>ISBN:</strong> {{ comic.isbn }}
+          </p>
+          <p>
+            <strong>Page Count:</strong> {{ comic.pageCount }}
+          </p>
+          <p>
+            <strong>Creators:</strong>
+          </p>
+          <div *ngFor="let creator of comic.creators.items">
+            <strong>Name:</strong> {{ creator.name }}, {{ creator.role }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
